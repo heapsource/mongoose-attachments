@@ -53,8 +53,8 @@ The following example extens the 'Post' model to use attachments with a property
 
 Assuming that the HTML form sent a file in a field called 'image':
 
-	app.post('/upload', function(req, res, next) {
-	  var post = new mongoose.model('Post')();
+  app.post('/upload', function(req, res, next) {
+    var post = new mongoose.model('Post')();
     post.title = req.body.title;
     post.description = req.body.description;
 	  post.attach('image', req.files.image, function(err) {	
@@ -68,6 +68,7 @@ Assuming that the HTML form sent a file in a field called 'image':
 
 #### Using with an stand-alone app files
  
+  
   var post = new mongoose.model('Post')();
   post.title = 'Title of the Post';
   post.description = 'Description of the Post';
@@ -81,11 +82,13 @@ Assuming that the HTML form sent a file in a field called 'image':
       });
   })	
 
+
 ### Metadata
 
 When mongoose-attachments is used with images, it can provide basic information for each one of the specified styles:
 
 Example:
+
 
   {
     "dims" : {
@@ -114,6 +117,7 @@ Example in convert command:
 
 Example in plugin options:
 
+
   styles: {
     small: {
       resize: '50%'
@@ -121,6 +125,7 @@ Example in plugin options:
   }
 
 #### Keeping the Original File
+
 
   styles: {
     original: {
