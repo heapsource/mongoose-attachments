@@ -158,6 +158,11 @@ Example:
 
 Note: **DO NOT** include the dot in the extension.
 
+### Contributors
+
+* [Johan Hernandez](https://github.com/thepumpkin1979)
+* [Chantal Ackermann](https://github.com/nuarhu)
+
 ## License (MIT)
 
 Copyright (c) 2011 Firebase.co - http://firebase.co
