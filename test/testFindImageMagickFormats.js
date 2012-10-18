@@ -1,15 +1,18 @@
 var plugin = require('../lib/attachments');
 
 // NOTE that these tests have been created on MacOS 10.7.5 with ImageMagick 6.7.7-6 installed via homebrew
-// Call: node test/testFindImageMagickFormats.js
-// Tests have passed if no error has been thrown
+// Check that the formats in the tests match your installation by calling
+// 'convert -list format' and comparing the output
+//
+// CALL for test: node test/testFindImageMagickFormats.js
+//
+// Tests have passed if no error is thrown and the "<mode(s)> support passed" messages are printed.
 
 plugin.registerImageMagickDecodingFormats();
 
 plugin.registerImageMagickFormats({ read: true }, function(error, formats) {
   if (error) console.log(error);
   else {
-    //console.log("-----------ATT formats", formats);
     if (formats.indexOf('DOT') >= 0) {
       throw new Error ('DOT has no blob,read,write,multi support');
     }
@@ -26,7 +29,6 @@ plugin.registerImageMagickFormats({ read: true }, function(error, formats) {
 plugin.registerImageMagickFormats({ write: true }, function(error, formats) {
   if (error) console.log(error);
   else {
-    //console.log("-----------ATT formats", formats);
     if (formats.indexOf('DOT') >= 0) {
       throw new Error ('DOT has no blob,read,write,multi support');
     }
@@ -43,7 +45,6 @@ plugin.registerImageMagickFormats({ write: true }, function(error, formats) {
 plugin.registerImageMagickFormats({ write: true, blob: true }, function(error, formats) {
   if (error) console.log(error);
   else {
-    //console.log("-----------ATT formats", formats);
     if (formats.indexOf('DOT') >= 0) {
       throw new Error ('DOT has no blob,read,write,multi support');
     }
@@ -60,7 +61,6 @@ plugin.registerImageMagickFormats({ write: true, blob: true }, function(error, f
 plugin.registerImageMagickFormats({ read: true, multi: true }, function(error, formats) {
   if (error) console.log(error);
   else {
-    //console.log("-----------ATT formats", formats);
     if (formats.indexOf('DOT') >= 0) {
       throw new Error ('DOT has no blob,read,write,multi support');
     }
