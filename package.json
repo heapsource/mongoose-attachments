@@ -2,7 +2,7 @@
   "author": "Firebase.co <npm@firebase.co> (http://www.firebase.co/)",
   "name": "mongoose-attachments",
   "description": "Mongoose.js Attachments plugin. Supports Amazon S3 and ImageMagick styles",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/firebaseco/mongoose-attachments",
   "repository": {
     "type": "git",
