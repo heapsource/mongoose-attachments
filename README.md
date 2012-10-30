@@ -161,6 +161,7 @@ Note: **DO NOT** include the dot in the extension.
 #### Supported Formats
 
 There are two possibilities to define which file formats should be supported:
+
 1. white list (default)
 2. formats listed with certain flags by `convert -list format`
 
@@ -173,7 +174,7 @@ The default white list contains:
 * TIFF
 * JPEG
 
-To add a format call the following method before using the plugin in the mongoose schema.
+To add a format call the following method before using the plugin in the mongoose schema:
 
     attachments.registerDecodingFormat('BMP');
 
@@ -182,16 +183,16 @@ To add a format call the following method before using the plugin in the mongoos
 ImageMagick (or GraphicsMagick) list the supported formats when calling `convert -list format` (or `identify`).
 The formats are flagged to show which operations are supported with each:
 
-* '*' native blob support (only ImageMagick, not GraphicsMagick)
-* 'r' read support
-* 'w' write support
-* '+' support for multiple images
+* `*` native blob support (only ImageMagick, not GraphicsMagick)
+* `r` read support
+* `w` write support
+* `+` support for multiple images
 
 You can register the formats that are supported for read operation like so:
 
     attachments.registerImageMagickDecodingFormats();
 
-To register formats supporting different operations there is a more general function. Specifying certain operations will select only those formats that support all of them. Formats supporting only a subset won't be included. The following call yields the list of formats that support 'read','write','multi':
+To register formats supporting different operations there is a more general function. Specifying certain operations will select only those formats that support all of them. Formats supporting only a subset won't be included. The following call yields the list of formats that support `read`,`write`,`multi`:
 
     attachments.registerImageMagickFormats({ read: true, write: true, multi: true });
 
