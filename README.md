@@ -84,7 +84,7 @@ Assuming that the HTML form sent a file in a field called 'image':
 
 #### Using Local Storage
 
-    // further up: var path = require('path'),
+    // further up: var path = require('path');
     
     MySchema.plugin(attachments, {
       directory: '/absolute/path/to/public/images',
