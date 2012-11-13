@@ -82,6 +82,43 @@ Assuming that the HTML form sent a file in a field called 'image':
         });
     })	
 
+#### Using Local Storage
+
+    // further up: var path = require('path');
+    
+    MySchema.plugin(attachments, {
+      directory: '/absolute/path/to/public/images',
+      storage : {
+        providerName: 'fs'
+      },
+      properties: {
+        image: {
+          styles: {
+            original: {
+              // keep the original file
+            },
+            thumb: {
+              thumbnail: '100x100^',
+              gravity: 'center',
+              extent: '100x100',
+              '$format': 'jpg'
+            },
+            detail: {
+              resize: '400x400>',
+              '$format': 'jpg'
+            }
+          }
+        }
+      }
+    });
+    MySchema.virtual('detail_img').get(function() {
+      return path.join('detail', path.basename(this.image.detail.path));
+    });
+    MySchema.virtual('thumb_img').get(function() {
+      return path.join('thumb', path.basename(this.image.thumb.path));
+    });
+
+The URL to the images would then be `http://<your host>/<mount path>/images` prepended to the value of `MyModel.detail_img` and `MyModel.thumb_img`.
 
 ### Metadata
 
