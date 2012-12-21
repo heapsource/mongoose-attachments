@@ -1,6 +1,7 @@
 ## What's mongoose-attachments?
 
-Mongoose-Attachments is an attachments plugin for [Mongoose.js](http://mongoosejs.com/). Supports [Amazon S3](http://aws.amazon.com/es/s3/) out-of-the-box and ImageMagick transformations styles.
+Mongoose-Attachments is an attachments plugin for [Mongoose.js](http://mongoosejs.com/). It handles ImageMagick transformations for the following providers:
+
 
 ### Stable Release
 
@@ -14,14 +15,19 @@ providers into submodules. If you plan to use 0.0.4, do make sure that you use t
 
 ### Installation
 
-    $ npm install mongoose-attachments
+* [mongoose-attachments-localfs](https://github.com/firebaseco/mongoose-attachments-localfs)
+* [mongoose-attachments-aws2js](https://github.com/firebaseco/mongoose-attachments-aws2js)
+* [mongoose-attachments-knox](https://github.com/firebaseco/mongoose-attachments-knox)
+
+Note: Mongoose-Attachments is bundled with each provider.
+
 
 ### Usage
 
-The following example extens the 'Post' model to use attachments with a property called 'image' and three different styles.
+The following example extends the 'Post' model to use attachments with a property called 'image' and three different styles.
 
     var mongoose = require('mongoose');
-    var attachments = require('mongoose-attachments');
+    var attachments = require('mongoose-attachments-aws2js');
     var PostSchema = new mongoose.Schema({
       title: String,
       description: String
@@ -92,6 +98,47 @@ Assuming that the HTML form sent a file in a field called 'image':
         });
     })	
 
+<<<<<<< HEAD
+=======
+#### Using Local Storage
+With [mongoose-attachments-localfs](https://github.com/firebaseco/mongoose-attachments-localfs).
+
+    // further up: var path = require('path');
+    
+    MySchema.plugin(attachments, {
+      directory: '/absolute/path/to/public/images',
+      storage : {
+        providerName: 'fs'
+      },
+      properties: {
+        image: {
+          styles: {
+            original: {
+              // keep the original file
+            },
+            thumb: {
+              thumbnail: '100x100^',
+              gravity: 'center',
+              extent: '100x100',
+              '$format': 'jpg'
+            },
+            detail: {
+              resize: '400x400>',
+              '$format': 'jpg'
+            }
+          }
+        }
+      }
+    });
+    MySchema.virtual('detail_img').get(function() {
+      return path.join('detail', path.basename(this.image.detail.path));
+    });
+    MySchema.virtual('thumb_img').get(function() {
+      return path.join('thumb', path.basename(this.image.thumb.path));
+    });
+
+The URL to the images would then be `http://<your host>/<mount path>/images` prepended to the value of `MyModel.detail_img` and `MyModel.thumb_img`.
+>>>>>>> 65b4ba6... remove provider references, update Readme.md with provider information
 
 ### Metadata
 

@@ -1,7 +1,7 @@
 {
   "author": "Firebase.co <npm@firebase.co> (http://www.firebase.co/)",
   "name": "mongoose-attachments",
-  "description": "Mongoose.js Attachments plugin. Supports Amazon S3 and ImageMagick styles",
+  "description": "Mongoose.js Attachments plugin. Supports ImageMagick styles",
   "version": "0.0.4",
   "homepage": "https://github.com/firebaseco/mongoose-attachments",
   "repository": {
@@ -14,9 +14,7 @@
   },
   "dependencies": {
     "async": "0.1.x",
-    "knox": "0.0.x",
-    "imagemagick": "0.1.x",
-    "aws2js": "0.6.x"
+    "imagemagick": "0.1.x"
   },
   "devDependencies": {},
   "optionalDependencies": {},
