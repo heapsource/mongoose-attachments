@@ -2,6 +2,16 @@
 
 Mongoose-Attachments is an attachments plugin for [Mongoose.js](http://mongoosejs.com/). Supports [Amazon S3](http://aws.amazon.com/es/s3/) out-of-the-box and ImageMagick transformations styles.
 
+### Stable Release
+
+You're reading the documentation for the next release of Mongoose-Attachments, which should be 0.1.0.
+The current stable release is [0.0.4](https://github.com/firebaseco/mongoose-attachments/blob/v0.0.4).
+
+Currently, Mongoose-Attachments is undergoing restructuring as we are moving the different storage
+providers into submodules. If you plan to use 0.0.4, do make sure that you use the [documentation for 0.0.4]
+(https://github.com/firebaseco/mongoose-attachments/blob/v0.0.4/README.md).
+
+
 ### Installation
 
     $ npm install mongoose-attachments
