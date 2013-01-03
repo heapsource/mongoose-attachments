@@ -82,9 +82,9 @@ Assuming that the HTML form sent a file in a field called 'image':
       })	
     });
 
+
 #### Using with an stand-alone app files
- 
-  
+
     var post = new mongoose.model('Post')();
     post.title = 'Title of the Post';
     post.description = 'Description of the Post';
@@ -98,9 +98,9 @@ Assuming that the HTML form sent a file in a field called 'image':
         });
     })	
 
-<<<<<<< HEAD
-=======
+
 #### Using Local Storage
+
 With [mongoose-attachments-localfs](https://github.com/firebaseco/mongoose-attachments-localfs).
 
     // further up: var path = require('path');
@@ -138,14 +138,13 @@ With [mongoose-attachments-localfs](https://github.com/firebaseco/mongoose-attac
     });
 
 The URL to the images would then be `http://<your host>/<mount path>/images` prepended to the value of `MyModel.detail_img` and `MyModel.thumb_img`.
->>>>>>> 65b4ba6... remove provider references, update Readme.md with provider information
+
 
 ### Metadata
 
 When mongoose-attachments is used with images, it can provide basic information for each one of the specified styles:
 
 Example:
-
 
     {
       "dims" : {
