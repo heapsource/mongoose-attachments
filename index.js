@@ -20,10 +20,5 @@
 
 var attachments = require('./lib/attachments');
 
-// Load the build-in providers.
-require('./lib/providers/s3');
-
-require('./lib/providers/aws2js');
-
 // Export the Plugin directory for Mongoose.js
 module.exports = attachments;
