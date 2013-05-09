@@ -103,12 +103,13 @@ Assuming that the HTML form sent a file in a field called 'image':
 
 With [mongoose-attachments-localfs](https://github.com/firebaseco/mongoose-attachments-localfs).
 
-    // further up: var path = require('path');
+    var path = require('path');
+    var attachments = require('mongoose-attachments-localfs');
     
     MySchema.plugin(attachments, {
       directory: '/absolute/path/to/public/images',
       storage : {
-        providerName: 'fs'
+        providerName: 'localfs'
       },
       properties: {
         image: {
