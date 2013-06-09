@@ -26,116 +26,124 @@ Note: Mongoose-Attachments is bundled with each provider.
 
 The following example extends the 'Post' model to use attachments with a property called 'image' and three different styles.
 
-    var mongoose = require('mongoose');
-    var attachments = require('mongoose-attachments-aws2js');
-    var PostSchema = new mongoose.Schema({
-      title: String,
-      description: String
-    });
-    
-    PostSchema.plugin(attachments, {
-      directory: 'achievements',
-        storage: {
-          providerName: 's3',
-          options: {
-          key: '<key>',
-          secret: '<secret>',
-          bucket: '<bucket>'
-        }
-      },
-      properties: {
-        image: {
-          styles: {
-            original: {
-              // keep the original file
-            },
-            small: {
-              resize: '150x150'
-            },
-            medium: {
-              resize: '120x120'
-            },
-            medium_jpg: {
-              '$format': 'jpg' // this one changes the format of the image to jpg
-            }
-          }
+```javascript
+var mongoose = require('mongoose');
+var attachments = require('mongoose-attachments');
+require('mongoose-attachments-aws2js');
+
+var PostSchema = new mongoose.Schema({
+  title: String,
+  description: String
+});
+
+PostSchema.plugin(attachments, {
+  directory: 'achievements',
+  storage: {
+    providerName: 'aws2js',
+    options: {
+      key: '<key>',
+      secret: '<secret>',
+      bucket: '<bucket>'
+    }
+  },
+  properties: {
+    image: {
+      styles: {
+        original: {
+          // keep the original file
+        },
+        small: {
+          resize: '150x150'
+        },
+        medium: {
+          resize: '120x120'
+        },
+        medium_jpg: {
+          '$format': 'jpg' // this one changes the format of the image to jpg
         }
       }
-    });
-	
-    var Post = mongoose.model('Post', PostSchema);
+    }
+  }
+});
+
+var Post = mongoose.model('Post', PostSchema);
+```
 
 #### Using with Express.js uploads
 
 Assuming that the HTML form sent a file in a field called 'image':
 
-    app.post('/upload', function(req, res, next) {
-      var post = new mongoose.model('Post')();
-      post.title = req.body.title;
-      post.description = req.body.description;
-      post.attach('image', req.files.image, function(err) {	
-        if(err) return next(err);
-        post.save(function(err) {
-          if(err) return next(err);
-          res.send('Post has been saved with file!');
-        });
-      })	
+```javascript
+app.post('/upload', function(req, res, next) {
+  var post = new mongoose.model('Post')();
+  post.title = req.body.title;
+  post.description = req.body.description;
+  post.attach('image', req.files.image, function(err) {	
+    if(err) return next(err);
+    post.save(function(err) {
+      if(err) return next(err);
+      res.send('Post has been saved with file!');
     });
-
+  })	
+});
+```
 
 #### Using with an stand-alone app files
 
-    var post = new mongoose.model('Post')();
-    post.title = 'Title of the Post';
-    post.description = 'Description of the Post';
-    post.attach('image', {
-        path: '/path/to/the/file.png'
-      }, function(err) {	
-        if(err) return next(err);
-        post.save(function(err) {
-          if(err) return next(err);
-          console.log('Post has been Saved with file');
-        });
-    })	
-
+```javascript
+var post = new mongoose.model('Post')();
+post.title = 'Title of the Post';
+post.description = 'Description of the Post';
+post.attach('image', {
+    path: '/path/to/the/file.png'
+  }, function(err) {	
+    if(err) return next(err);
+    post.save(function(err) {
+      if(err) return next(err);
+      console.log('Post has been Saved with file');
+    });
+})
+```
 
 #### Using Local Storage
 
 With [mongoose-attachments-localfs](https://github.com/firebaseco/mongoose-attachments-localfs).
 
-    // further up: var path = require('path');
-    
-    MySchema.plugin(attachments, {
-      directory: '/absolute/path/to/public/images',
-      storage : {
-        providerName: 'fs'
-      },
-      properties: {
-        image: {
-          styles: {
-            original: {
-              // keep the original file
-            },
-            thumb: {
-              thumbnail: '100x100^',
-              gravity: 'center',
-              extent: '100x100',
-              '$format': 'jpg'
-            },
-            detail: {
-              resize: '400x400>',
-              '$format': 'jpg'
-            }
-          }
+```javascript
+// further up: var path = require('path');
+
+MySchema.plugin(attachments, {
+  directory: '/absolute/path/to/public/images',
+  storage : {
+    providerName: 'fs'
+  },
+  properties: {
+    image: {
+      styles: {
+        original: {
+          // keep the original file
+        },
+        thumb: {
+          thumbnail: '100x100^',
+          gravity: 'center',
+          extent: '100x100',
+          '$format': 'jpg'
+        },
+        detail: {
+          resize: '400x400>',
+          '$format': 'jpg'
         }
       }
-    });
-    MySchema.virtual('detail_img').get(function() {
-      return path.join('detail', path.basename(this.image.detail.path));
-    });
-    MySchema.virtual('thumb_img').get(function() {
-      return path.join('thumb', path.basename(this.image.thumb.path));
-    });
+    }
+  }
+});
+MySchema.virtual('detail_img').get(function() {
+  return path.join('detail', path.basename(this.image.detail.path));
+});
+MySchema.virtual('thumb_img').get(function() {
+  return path.join('thumb', path.basename(this.image.thumb.path));
+});
+```
 
 The URL to the images would then be `http://<your host>/<mount path>/images` prepended to the value of `MyModel.detail_img` and `MyModel.thumb_img`.
 
@@ -146,20 +154,22 @@ When mongoose-attachments is used with images, it can provide basic information 
 
 Example:
 
-    {
-      "dims" : {
-        "w" : 120,
-        "h" : 103
-      },
-      "depth" : 8,
-      "format" : "PNG",
-      "oname" : "dragon.png",
-      "mtime" : ISODate("2012-05-22T06:21:53Z"),
-      "ctime" : ISODate("2012-05-22T06:21:53Z"),
-      "size" : 26887,
-      "path" : "/achievements/4fbaaa31db8cec0923000019-medium.png",
-      "defaultUrl" : "http://gamygame-dev.s3.amazonaws.com/achievements/4fbaaa31db8cec0923000019-medium.png"
-    }
+```javascript
+{
+  "dims" : {
+    "w" : 120,
+    "h" : 103
+  },
+  "depth" : 8,
+  "format" : "PNG",
+  "oname" : "dragon.png",
+  "mtime" : ISODate("2012-05-22T06:21:53Z"),
+  "ctime" : ISODate("2012-05-22T06:21:53Z"),
+  "size" : 26887,
+  "path" : "/achievements/4fbaaa31db8cec0923000019-medium.png",
+  "defaultUrl" : "http://gamygame-dev.s3.amazonaws.com/achievements/4fbaaa31db8cec0923000019-medium.png"
+}
+```
 
 ### Styles and ImageMagick Transformations
 
@@ -173,30 +183,36 @@ Example in convert command:
 
 Example in plugin options:
 
-    styles: {
-      small: {
-        resize: '50%'
-      }
-    }
+```javascript
+styles: {
+  small: {
+    resize: '50%'
+  }
+}
+```
 
 #### Keeping the Original File
 
-    styles: {
-      original: {
-        // no transformations
-      }
-    }
+```javascript
+styles: {
+  original: {
+    // no transformations
+  }
+}
+```
 
 #### Multiples Transformations
 
 Use another properties under the style to provide more transformations
 
-    styles: {
-      small: {
-        crop: '120x120',
-        blur: '5x10' //radius x stigma
-      }
-    }
+```javascript
+styles: {
+  small: {
+    crop: '120x120',
+    blur: '5x10' //radius x stigma
+  }
+}
+```
 
 More information about 'blur' at the [ImageMagick website] http://www.imagemagick.org/script/command-line-options.php#blur
 
@@ -232,7 +248,9 @@ The default white list contains:
 
 To add a format call the following method before using the plugin in the mongoose schema:
 
-    attachments.registerDecodingFormat('BMP');
+```javascript
+attachments.registerDecodingFormat('BMP');
+```
 
 ##### Formats Provided by ImageMagick
 
@@ -246,26 +264,32 @@ The formats are flagged to show which operations are supported with each:
 
 You can register the formats that are supported for read operation like so:
 
-    attachments.registerImageMagickDecodingFormats();
+```javascript
+attachments.registerImageMagickDecodingFormats();
+```
 
 To register formats supporting different operations there is a more general function. Specifying certain operations will select only those formats that support all of them. Formats supporting only a subset won't be included. The following call yields the list of formats that support `read`,`write`,`multi`:
 
-    attachments.registerImageMagickFormats({ read: true, write: true, multi: true });
+```javascript
+attachments.registerImageMagickFormats({ read: true, write: true, multi: true });
+```
 
 If you want to use the output list that was generated for your own benefit you can specify a callback as second argument to that above method. Note, however, that in that case the supported decoding formats won't be changed on the plugin.
 
 You could use that callback to assure that the formats you want your client to support are indeed supported by the backing ImageMagick (or GraphicsMagick) installation. For example, checking TIFF support:
 
-    attachments.registerImageMagickFormats({ read: true }, function(error, formats) {
-      if (error) throw new Error(error);
-      else if (formats && formats.length > 0) {
-        if (formats.indexOf('TIFF') < 0) {
-          throw new Error('No TIFF support!');
-        }
-      } else {
-        throw new Error("No formats supported for decoding!");
-      }
-    });
+```javascript
+attachments.registerImageMagickFormats({ read: true }, function(error, formats) {
+  if (error) throw new Error(error);
+  else if (formats && formats.length > 0) {
+    if (formats.indexOf('TIFF') < 0) {
+      throw new Error('No TIFF support!');
+    }
+  } else {
+    throw new Error("No formats supported for decoding!");
+  }
+});
+```
 
 ### Contributors
 
