@@ -6,18 +6,18 @@ Mongoose-Attachments is an attachments plugin for [Mongoose.js](http://mongoosej
 ### Stable Release
 
 You're reading the documentation for the next release of Mongoose-Attachments, which should be 0.1.0.
-The current stable release is [0.0.4](https://github.com/firebaseco/mongoose-attachments/blob/v0.0.4).
+The current stable release is [0.0.4](https://github.com/heapsource/mongoose-attachments/blob/v0.0.4).
 
 Currently, Mongoose-Attachments is undergoing restructuring as we are moving the different storage
 providers into submodules. If you plan to use 0.0.4, do make sure that you use the [documentation for 0.0.4]
-(https://github.com/firebaseco/mongoose-attachments/blob/v0.0.4/README.md).
+(https://github.com/heapsource/mongoose-attachments/blob/v0.0.4/README.md).
 
 
 ### Installation
 
-* [mongoose-attachments-localfs](https://github.com/firebaseco/mongoose-attachments-localfs)
-* [mongoose-attachments-aws2js](https://github.com/firebaseco/mongoose-attachments-aws2js)
-* [mongoose-attachments-knox](https://github.com/firebaseco/mongoose-attachments-knox)
+* [mongoose-attachments-localfs](https://github.com/heapsource/mongoose-attachments-localfs)
+* [mongoose-attachments-aws2js](https://github.com/heapsource/mongoose-attachments-aws2js)
+* [mongoose-attachments-knox](https://github.com/heapsource/mongoose-attachments-knox)
 
 Note: Mongoose-Attachments is bundled with each provider.
 
@@ -78,13 +78,13 @@ app.post('/upload', function(req, res, next) {
   var post = new mongoose.model('Post')();
   post.title = req.body.title;
   post.description = req.body.description;
-  post.attach('image', req.files.image, function(err) {	
+  post.attach('image', req.files.image, function(err) {
     if(err) return next(err);
     post.save(function(err) {
       if(err) return next(err);
       res.send('Post has been saved with file!');
     });
-  })	
+  })
 });
 ```
 
@@ -96,7 +96,7 @@ post.title = 'Title of the Post';
 post.description = 'Description of the Post';
 post.attach('image', {
     path: '/path/to/the/file.png'
-  }, function(err) {	
+  }, function(err) {
     if(err) return next(err);
     post.save(function(err) {
       if(err) return next(err);
@@ -107,7 +107,7 @@ post.attach('image', {
 
 #### Using Local Storage
 
-With [mongoose-attachments-localfs](https://github.com/firebaseco/mongoose-attachments-localfs).
+With [mongoose-attachments-localfs](https://github.com/heapsource/mongoose-attachments-localfs).
 
 ```javascript
 // further up: var path = require('path');
@@ -305,4 +305,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
