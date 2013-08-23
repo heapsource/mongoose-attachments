@@ -28,8 +28,7 @@ The following example extends the 'Post' model to use attachments with a propert
 
 ```javascript
 var mongoose = require('mongoose');
-var attachments = require('mongoose-attachments');
-require('mongoose-attachments-aws2js');
+var attachments = require('mongoose-attachments-aws2js');
 
 var PostSchema = new mongoose.Schema({
   title: String,
@@ -110,12 +109,13 @@ post.attach('image', {
 With [mongoose-attachments-localfs](https://github.com/heapsource/mongoose-attachments-localfs).
 
 ```javascript
-// further up: var path = require('path');
+var path = require('path');
+var attachments = require('mongoose-attachments-localfs');
 
 MySchema.plugin(attachments, {
   directory: '/absolute/path/to/public/images',
   storage : {
-    providerName: 'fs'
+    providerName: 'localfs'
   },
   properties: {
     image: {
