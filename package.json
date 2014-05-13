@@ -2,7 +2,13 @@
   "author": "Firebase.co <npm@firebase.co> (http://www.firebase.co/)",
   "name": "mongoose-attachments",
   "description": "Mongoose.js Attachments plugin. Supports ImageMagick styles",
-  "keywords": ["mongoose", "s3", "imagemagick", "uploads", "attachments"],
+  "keywords": [
+    "mongoose",
+    "s3",
+    "imagemagick",
+    "uploads",
+    "attachments"
+  ],
   "version": "0.1.0",
   "homepage": "https://github.com/firebaseco/mongoose-attachments",
   "repository": {
@@ -11,11 +17,17 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "make test"
+    "test": "npm run specs && node ./test/testFindImageMagickFormats.js",
+    "specs": "./node_modules/.bin/mocha test/**/*.spec.js"
   },
   "dependencies": {
     "async": "0.1.x",
     "imagemagick": "0.1.x"
+  },
+  "devDependencies": {
+    "mongoose": "^3.8.9",
+    "mocha": "^1.18.2",
+    "chai": "^1.9.1"
   },
   "engines": {
     "node": "*"
